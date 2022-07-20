@@ -4,9 +4,9 @@ import br.com.digix.pokedigix.pokemon.Pokemon;
 
 public class Evolucao {
     private Pokemon evolucao;
-    private String meioDeEvolucao;
+    private MeioDeEvolucao meioDeEvolucao;
 
-    public Evolucao(Pokemon evolucao, String meioDeEvolucao) {
+    public Evolucao(Pokemon evolucao, MeioDeEvolucao meioDeEvolucao) {
         this.evolucao = evolucao;
         this.meioDeEvolucao = meioDeEvolucao;
     }

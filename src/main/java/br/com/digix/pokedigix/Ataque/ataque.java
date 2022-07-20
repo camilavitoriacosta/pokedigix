@@ -5,10 +5,10 @@ public class Ataque {
     private int acuracia;
     private int pontosDePoder;
     private String categoria;
-    private String descricao;
+    private Categoria descricao;
     private String nome;
 
-    public Ataque(int forca, int acuracia, int pontosDePoder, String categoria, String descricao, String nome) {
+    public Ataque(int forca, int acuracia, int pontosDePoder, String categoria, Categoria descricao, String nome) {
         this.forca = forca;
         this.acuracia = acuracia;
         this.pontosDePoder = pontosDePoder;
