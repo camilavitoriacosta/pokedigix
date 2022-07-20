@@ -30,6 +30,20 @@ public class AtaqueTest {
     }
 
     @Test
+    public void deve_criar_um_ataque_da_categoria_efeito() throws AcuraciaInvalida{
+        // Arrange
+        String nomeEsperado = "Choque do Trovao";
+        int acuracia = -50;
+        int pontosDePoder = 80;
+        Categoria categoria = Categoria.EFEITO;
+        String descricao = "Da choque nos outros";
+
+        Assertions.assertThrows(AcuraciaInvalida.class, () -> {
+            new Ataque(acuracia, pontosDePoder, categoria, descricao, nomeEsperado);
+        });
+    }
+
+    @Test
     public void nao_deve_criar_um_ataque_com_acuracia_negativa() throws AcuraciaInvalida{
         // Arrange
         String nomeEsperado = "Choque do Trovao";
@@ -43,5 +57,4 @@ public class AtaqueTest {
             new Ataque(forca, acuracia, pontosDePoder, categoria, descricao, nomeEsperado);
         });
     }
-    
 }
