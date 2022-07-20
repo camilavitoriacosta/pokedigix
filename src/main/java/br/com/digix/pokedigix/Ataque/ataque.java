@@ -1,14 +1,33 @@
 package br.com.digix.pokedigix.ataque;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import br.com.digix.pokedigix.tipo.Tipo;
+
+@Entity
 public class Ataque {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @Column(nullable = true)
     private int forca;
+    @Column(nullable = false)
     private int acuracia;
+    @Column(nullable = false)
     private int pontosDePoder;
-    private String categoria;
-    private Categoria descricao;
+    @Column(nullable = false)
+    private Categoria categoria;
+    @Column(nullable = false)
+    private String descricao;
+    @Column(nullable = false, length = 20)
     private String nome;
 
-    public Ataque(int forca, int acuracia, int pontosDePoder, String categoria, Categoria descricao, String nome) {
+    public Ataque(int forca, int acuracia, int pontosDePoder, Categoria categoria, String descricao,
+            String nome) {
         this.forca = forca;
         this.acuracia = acuracia;
         this.pontosDePoder = pontosDePoder;
@@ -41,19 +60,19 @@ public class Ataque {
         this.pontosDePoder = pontosDePoder;
     }
 
-    public String getCategoria() {
+    public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 
-    public Categoria getDescricao() {
+    public String getDescricao() {
         return descricao;
     }
 
-    public void setDescricao(Categoria descricao) {
+    public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
 
@@ -64,4 +83,13 @@ public class Ataque {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
 }
