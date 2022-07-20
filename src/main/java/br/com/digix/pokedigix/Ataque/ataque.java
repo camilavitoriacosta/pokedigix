@@ -34,13 +34,13 @@ public class Ataque {
     private String nome;
 
     public Ataque(int forca, int acuracia, int pontosDePoder, Categoria categoria, String descricao,
-            String nome) {
-        this.forca = forca;
-        this.acuracia = acuracia;
-        this.pontosDePoder = pontosDePoder;
-        this.categoria = categoria;
-        this.descricao = descricao;
-        this.nome = nome;
+            String nome) throws AcuraciaInvalida {
+        setForca(forca);
+        setAcuracia(acuracia);
+        setPontosDePoder(pontosDePoder);
+        setCategoria(categoria);
+        setDescricao(descricao);
+        setNome(nome);
     }
 
     public int getForca() {
@@ -55,8 +55,13 @@ public class Ataque {
         return acuracia;
     }
 
-    public void setAcuracia(int acuracia) {
-        this.acuracia = acuracia;
+    public void setAcuracia(int acuracia) throws AcuraciaInvalida {
+        if ( acuracia > 0 && acuracia < 100){
+            this.acuracia = acuracia;
+        }
+        else{
+            throw new AcuraciaInvalida();
+        }
     }
 
     public int getPontosDePoder() {
