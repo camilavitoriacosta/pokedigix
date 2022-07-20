@@ -12,14 +12,22 @@ public class AtaqueTest {
     public void deve_poder_criar_um_ataque(){
         // Arrange
         String nomeEsperado = "Choque do Trovao";
+        int forca = 40;
+        int acuracia = 50;
+        int pontosDePoder = 80;
+        Categoria categoria = Categoria.ESPECIAL;
+        String descricao = "Da choque nos outros";
 
         //Act
-        Ataque ataque = new Ataque(40, 40, 80, 
-        Categoria.ESPECIAL, "Da choque nos outros",
-        nomeEsperado);
+        Ataque ataque = new Ataque(forca, acuracia, pontosDePoder, categoria, descricao, nomeEsperado);
 
         //Assert
         assertEquals(nomeEsperado, ataque.getNome());
+        assertEquals(forca, ataque.getForca());
+        assertEquals(acuracia, ataque.getAcuracia());
+        assertEquals(pontosDePoder, ataque.getPontosDePoder());
+        assertEquals(categoria, ataque.getCategoria());
+        assertEquals(descricao, ataque.getDescricao());
     }
     
 }
