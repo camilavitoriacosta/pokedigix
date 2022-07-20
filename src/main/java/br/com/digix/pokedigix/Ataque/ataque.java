@@ -49,11 +49,11 @@ public class Ataque {
         this.categoria = categoria;
     }
 
-    public String getDescricao() {
+    public Categoria getDescricao() {
         return descricao;
     }
 
-    public void setDescricao(String descricao) {
+    public void setDescricao(Categoria descricao) {
         this.descricao = descricao;
     }
 

@@ -19,11 +19,11 @@ public class Evolucao {
         this.evolucao = evolucao;
     }
 
-    public String getMeioDeEvolucao() {
+    public MeioDeEvolucao getMeioDeEvolucao() {
         return meioDeEvolucao;
     }
 
-    public void setMeioDeEvolucao(String meioDeEvolucao) {
+    public void setMeioDeEvolucao(MeioDeEvolucao meioDeEvolucao) {
         this.meioDeEvolucao = meioDeEvolucao;
     }
 }
