@@ -24,10 +24,10 @@ public class Ataque {
     private int pontosDePoder;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, length = 20)
     private Categoria categoria;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 40)
     private String descricao;
 
     @Column(nullable = false, length = 20)
@@ -38,9 +38,18 @@ public class Ataque {
         setForca(forca);
         setAcuracia(acuracia);
         setPontosDePoder(pontosDePoder);
-        setCategoria(categoria);
         setDescricao(descricao);
         setNome(nome);
+        setCategoria(categoria);
+    }
+
+    public Ataque(int acuracia, int pontosDePoder, Categoria categoria, String descricao,
+            String nome) throws AcuraciaInvalida {
+        setAcuracia(acuracia);
+        setPontosDePoder(pontosDePoder);
+        setDescricao(descricao);
+        setNome(nome);
+        setCategoria(categoria);
     }
 
     public int getForca() {
