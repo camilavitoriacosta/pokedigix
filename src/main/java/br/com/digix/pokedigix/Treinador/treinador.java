@@ -1,20 +1,30 @@
 package br.com.digix.pokedigix.treinador;
 
-import java.util.ArrayList;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-import br.com.digix.pokedigix.pokemon.Pokemon;
-
+@Entity
 public class Treinador {
-    private String nome;
-    private int dinheiro;
-    private int nivel;
-    private ArrayList<Pokemon> pokemons;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    public Treinador(String nome, int dinheiro, int nivel, ArrayList<Pokemon> pokemons) {
+    @Column(nullable = false, length = 15)
+    private String nome;
+    
+    @Column(nullable = false)
+    private int dinheiro;
+    
+    @Column(nullable = false)
+    private int nivel;
+    
+    public Treinador(String nome, int dinheiro, int nivel) {
         this.nome = nome;
         this.dinheiro = dinheiro;
         this.nivel = nivel;
-        this.pokemons = pokemons;
     }
 
     public String getNome() {
@@ -41,11 +51,7 @@ public class Treinador {
         this.nivel = nivel;
     }
 
-    public ArrayList<Pokemon> getPokemons() {
-        return pokemons;
-    }
-
-    public void setPokemons(ArrayList<Pokemon> pokemons) {
-        this.pokemons = pokemons;
+    public Long getId() {
+        return this.id;
     }
 }
