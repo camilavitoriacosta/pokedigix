@@ -33,14 +33,18 @@ public class AtaqueTest {
     public void deve_criar_um_ataque_da_categoria_efeito() throws AcuraciaInvalida{
         // Arrange
         String nomeEsperado = "Choque do Trovao";
-        int acuracia = -50;
+        int acuracia = 50;
         int pontosDePoder = 80;
         Categoria categoria = Categoria.EFEITO;
         String descricao = "Da choque nos outros";
+        
+        var ataque = new Ataque(acuracia, pontosDePoder, categoria, descricao, nomeEsperado);
 
-        Assertions.assertThrows(AcuraciaInvalida.class, () -> {
-            new Ataque(acuracia, pontosDePoder, categoria, descricao, nomeEsperado);
-        });
+        assertEquals(nomeEsperado, ataque.getNome());
+        assertEquals(acuracia, ataque.getAcuracia());
+        assertEquals(pontosDePoder, ataque.getPontosDePoder());
+        assertEquals(categoria, ataque.getCategoria());
+        assertEquals(descricao, ataque.getDescricao());
     }
 
     @Test
