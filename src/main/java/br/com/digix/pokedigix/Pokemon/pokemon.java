@@ -1,35 +1,57 @@
 package br.com.digix.pokedigix.pokemon;
 
-import java.util.ArrayList;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-import br.com.digix.pokedigix.ataque.Ataque;
-import br.com.digix.pokedigix.tipo.Tipo;
-import br.com.digix.pokedigix.treinador.Treinador;
-
+@Entity
 public class Pokemon {
-    private String nome;
-    private int nivel;
-    private int felicidade;
-    private Tipo tipo;
-    private double altura;
-    private double peso;
-    private char genero;
-    private String numeroPokedex;
-    private Treinador treinador;
-    private ArrayList<Ataque> ataques;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    public Pokemon(String nome, int nivel, int felicidade, Tipo tipo, double altura, double peso, char genero,
-            String numeroPokedex, Treinador treinador, ArrayList<Ataque> ataques) {
+    @Column(nullable = false, length = 15)
+    private String nome;
+
+    @Column(nullable = false)
+    private int nivel;
+
+    @Column(nullable = false)
+    private int felicidade;
+
+    @Column(nullable = false)
+    private double altura;
+
+    @Column(nullable = false)
+    private double peso;
+
+    @Column(nullable = false)
+    private char genero;
+
+    @Column(nullable = false)
+    private int numeroPokedex;
+
+    public Pokemon(String nome, int nivel, int felicidade, double altura, double peso, char genero,
+            int numeroPokedex) {
         this.nome = nome;
         this.nivel = nivel;
         this.felicidade = felicidade;
-        this.tipo = tipo;
         this.altura = altura;
         this.peso = peso;
         this.genero = genero;
         this.numeroPokedex = numeroPokedex;
-        this.treinador = treinador;
-        this.ataques = ataques;
+    }
+
+    public Pokemon(String nome, int nivel, int felicidade, double altura, double peso,
+            int numeroPokedex) {
+        this.nome = nome;
+        this.nivel = nivel;
+        this.felicidade = felicidade;
+        this.altura = altura;
+        this.peso = peso;
+        this.numeroPokedex = numeroPokedex;
     }
 
     public String getNome() {
@@ -56,14 +78,6 @@ public class Pokemon {
         this.felicidade = felicidade;
     }
 
-    public Tipo getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(Tipo tipo) {
-        this.tipo = tipo;
-    }
-
     public double getAltura() {
         return altura;
     }
@@ -88,27 +102,19 @@ public class Pokemon {
         this.genero = genero;
     }
 
-    public String getNumeroPokedex() {
+    public int getNumeroPokedex() {
         return numeroPokedex;
     }
 
-    public void setNumeroPokedex(String numeroPokedex) {
+    public void setNumeroPokedex(int numeroPokedex) {
         this.numeroPokedex = numeroPokedex;
     }
 
-    public Treinador getTreinador() {
-        return treinador;
+    public Long getId() {
+        return id;
     }
 
-    public void setTreinador(Treinador treinador) {
-        this.treinador = treinador;
-    }
-
-    public ArrayList<Ataque> getAtaques() {
-        return ataques;
-    }
-
-    public void setAtaques(ArrayList<Ataque> ataques) {
-        this.ataques = ataques;
+    public void setId(Long id) {
+        this.id = id;
     }
 }
