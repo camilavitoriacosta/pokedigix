@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import br.com.digix.pokedigix.tipo.Tipo;
+
 public class AtaqueTest {
 
     @Test
@@ -16,9 +18,10 @@ public class AtaqueTest {
         int pontosDePoder = 80;
         Categoria categoria = Categoria.ESPECIAL;
         String descricao = "Da choque nos outros";
+        Tipo tipo = new Tipo("Eletrico");
 
         //Act
-        Ataque ataque = new Ataque(forca, acuracia, pontosDePoder, categoria, descricao, nomeEsperado);
+        Ataque ataque = new Ataque(forca, acuracia, pontosDePoder, categoria, descricao, nomeEsperado, tipo);
 
         //Assert
         assertEquals(nomeEsperado, ataque.getNome());
@@ -37,8 +40,9 @@ public class AtaqueTest {
         int pontosDePoder = 80;
         Categoria categoria = Categoria.EFEITO;
         String descricao = "Da choque nos outros";
+        Tipo tipo = new Tipo("Eletrico");
         
-        var ataque = new Ataque(acuracia, pontosDePoder, categoria, descricao, nomeEsperado);
+        var ataque = new Ataque(acuracia, pontosDePoder, categoria, descricao, nomeEsperado, tipo);
 
         assertEquals(nomeEsperado, ataque.getNome());
         assertEquals(acuracia, ataque.getAcuracia());
@@ -56,9 +60,25 @@ public class AtaqueTest {
         int pontosDePoder = 80;
         Categoria categoria = Categoria.ESPECIAL;
         String descricao = "Da choque nos outros";
+        Tipo tipo = new Tipo("Eletrico");
 
         Assertions.assertThrows(AcuraciaInvalida.class, () -> {
-            new Ataque(forca, acuracia, pontosDePoder, categoria, descricao, nomeEsperado);
+            new Ataque(forca, acuracia, pontosDePoder, categoria, descricao, nomeEsperado, tipo);
         });
+    }
+
+    @Test
+    public void deve_ser_obrigatorio_informar_um_tipo() throws AcuraciaInvalida{
+        String nome = "Choque do Trovao";
+        int forca = 60;
+        int acuracia = 50;
+        int pontosDePoder = 80;
+        Categoria categoria = Categoria.EFEITO;
+        String descricao = "Da choque nos outros";
+        Tipo tipoEsperado = new Tipo("Eletrico");
+        
+        Ataque ataque = new Ataque(forca, acuracia, pontosDePoder, categoria, descricao, nome, tipoEsperado);
+
+        assertEquals(tipoEsperado, ataque.getTipo());
     }
 }
