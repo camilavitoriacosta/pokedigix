@@ -1,6 +1,6 @@
 package br.com.digix.pokedigix.pokemon;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,6 @@ public class PokemonRepositoryTest {
 
     @Test
     public void deve_salvar_um_pokemon(){
-        Long idEsperado = 5L;
         var nome = "Pikachu";
         var nivel = 10;
         var felicidade = 80;
@@ -25,7 +24,7 @@ public class PokemonRepositoryTest {
 
         pokemonRepository.save(pokemon);
 
-        assertEquals(idEsperado, pokemon.getId());
+        assertNotNull(pokemon.getId());
     }
 }
 

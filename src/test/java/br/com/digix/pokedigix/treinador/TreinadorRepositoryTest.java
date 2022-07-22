@@ -1,6 +1,6 @@
 package br.com.digix.pokedigix.treinador;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,6 @@ public class TreinadorRepositoryTest {
 
     @Test
     public void deve_salvar_um_treinador(){
-        Long idEsperado = 3L;
         var nome = "Dawn";
         var dinheiro = 100;
         var nivel = 2;
@@ -21,6 +20,6 @@ public class TreinadorRepositoryTest {
 
         treinadorRepository.save(treinador);
 
-        assertEquals(idEsperado, treinador.getId());
+        assertNotNull(treinador.getId());
     }
 }
