@@ -1,10 +1,18 @@
 package br.com.digix.pokedigix.pokemon;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
+import br.com.digix.pokedigix.tipo.Tipo;
 
 @Entity
 public class Pokemon {
@@ -27,14 +35,18 @@ public class Pokemon {
     @Column(nullable = false)
     private double peso;
 
-    @Column(nullable = false)
-    private char genero;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 10)
+    private Genero genero;
 
     @Column(nullable = false)
     private int numeroPokedex;
 
-    public Pokemon(String nome, int nivel, int felicidade, double altura, double peso, char genero,
-            int numeroPokedex) {
+    @ManyToMany
+    private Collection<Tipo> tipos;
+
+    public Pokemon(String nome, int nivel, int felicidade, double altura, double peso, Genero genero,
+            int numeroPokedex, Collection<Tipo> tipos) {
         this.nome = nome;
         this.nivel = nivel;
         this.felicidade = felicidade;
@@ -42,16 +54,7 @@ public class Pokemon {
         this.peso = peso;
         this.genero = genero;
         this.numeroPokedex = numeroPokedex;
-    }
-
-    public Pokemon(String nome, int nivel, int felicidade, double altura, double peso,
-            int numeroPokedex) {
-        this.nome = nome;
-        this.nivel = nivel;
-        this.felicidade = felicidade;
-        this.altura = altura;
-        this.peso = peso;
-        this.numeroPokedex = numeroPokedex;
+        this.tipos = tipos;
     }
 
     public String getNome() {
@@ -94,11 +97,11 @@ public class Pokemon {
         this.peso = peso;
     }
 
-    public char getGenero() {
+    public Genero getGenero() {
         return genero;
     }
 
-    public void setGenero(char genero) {
+    public void setGenero(Genero genero) {
         this.genero = genero;
     }
 
@@ -116,5 +119,10 @@ public class Pokemon {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+
+    public Collection<Tipo> getTipos() {
+        return tipos;
     }
 }
