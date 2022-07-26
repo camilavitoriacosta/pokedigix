@@ -1,8 +1,8 @@
 package br.com.digix.pokedigix.pokemon;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,8 +10,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import br.com.digix.pokedigix.ataque.Ataque;
 import br.com.digix.pokedigix.tipo.Tipo;
 
 @Entity
@@ -42,11 +45,16 @@ public class Pokemon {
     @Column(nullable = false)
     private int numeroPokedex;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "pokemon_tipo", joinColumns = @JoinColumn(name = "pokemon_id"), inverseJoinColumns = @JoinColumn(name = "tipo_id"))
     private Collection<Tipo> tipos;
 
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "pokemon_ataque", joinColumns = @JoinColumn(name = "pokemon_id"), inverseJoinColumns = @JoinColumn(name = "ataque_id"))
+    private Collection<Ataque> ataques;
+
     public Pokemon(String nome, int nivel, int felicidade, double altura, double peso, Genero genero,
-            int numeroPokedex, Collection<Tipo> tipos) {
+            int numeroPokedex, Collection<Tipo> tipos, Collection<Ataque> ataques) {
         this.nome = nome;
         this.nivel = nivel;
         this.felicidade = felicidade;
@@ -55,6 +63,15 @@ public class Pokemon {
         this.genero = genero;
         this.numeroPokedex = numeroPokedex;
         this.tipos = tipos;
+        this.ataques = ataques;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -113,16 +130,20 @@ public class Pokemon {
         this.numeroPokedex = numeroPokedex;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
     public Collection<Tipo> getTipos() {
         return tipos;
     }
+
+    public void setTipos(Collection<Tipo> tipos) {
+        this.tipos = tipos;
+    }
+
+    public Collection<Ataque> getAtaques() {
+        return ataques;
+    }
+
+    public void setAtaques(Collection<Ataque> ataques) {
+        this.ataques = ataques;
+    }
+
 }

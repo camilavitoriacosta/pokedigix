@@ -23,14 +23,7 @@ public class AtaqueRepositoryTest {
 
     @Test
     public void deve_salvar_um_ataque() throws AcuraciaInvalida {
-        String nomeEsperado = "Choque do Trovao";
-        int forca = 40;
-        int acuracia = 50;
-        int pontosDePoder = 80;
-        Categoria categoria = Categoria.ESPECIAL;
-        String descricao = "Da choque nos outros";
-        Tipo tipo = new Tipo("Eletrico");
-        Ataque ataque = new Ataque(forca, acuracia, pontosDePoder, categoria, descricao, nomeEsperado, tipo);
+        Ataque ataque = new AtaqueBuilder().construir();
 
         ataqueRepository.save(ataque);
 
@@ -39,14 +32,10 @@ public class AtaqueRepositoryTest {
 
     @Test
     public void deve_salvar_um_ataque_com_categoria_efeito() throws AcuraciaInvalida {
-        String nomeEsperado = "Choque do Trovao";
-        int acuracia = 50;
-        int pontosDePoder = 80;
         Categoria categoria = Categoria.EFEITO;
-        String descricao = "Da choque nos outros";
         Tipo tipo = new Tipo("Eletrico");
-        var ataque = new Ataque(acuracia, pontosDePoder, categoria, descricao, nomeEsperado, tipo);
-
+        Ataque ataque = new AtaqueBuilder().comCategoria(categoria).comTipo(tipo).construir();
+        
         ataqueRepository.save(ataque);
 
         assertNotNull(ataque.getId());
@@ -54,36 +43,25 @@ public class AtaqueRepositoryTest {
 
     @Test
     public void deve_salvar_um_tipo_para_um_ataque() throws AcuraciaInvalida {
-        String nomeEsperado = "Choque do Trovao";
-        int acuracia = 50;
-        int pontosDePoder = 80;
-        Categoria categoria = Categoria.EFEITO;
-        String descricao = "Da choque nos outros";
         Tipo tipo = new Tipo("Eletrico");
         tipoRepository.save(tipo);
         var tipoRetornado = tipoRepository.findById(tipo.getId()).get();
-        var ataque = new Ataque(acuracia, pontosDePoder, categoria, descricao, nomeEsperado, tipoRetornado);
+        Ataque ataque = new AtaqueBuilder().comTipo(tipoRetornado).construir();
         ataqueRepository.save(ataque);
-
+        
         var ataqueRetornado = ataqueRepository.findById(ataque.getId()).get();
 
         assertEquals(tipo.getNome(), ataqueRetornado.getTipo().getNome());
         assertEquals(ataque.getTipo().getId(), ataqueRetornado.getTipo().getId());
         assertNotNull(ataqueRetornado.getTipo().getId());
-        ;
     }
 
     @Test
     public void deve_procurar_um_ataque_pelo_tipo() throws AcuraciaInvalida {
-        String nomeEsperado = "Choque do Trovao";
-        int acuracia = 50;
-        int pontosDePoder = 80;
-        Categoria categoria = Categoria.EFEITO;
-        String descricao = "Da choque nos outros";
         Tipo tipo = new Tipo("Eletrico");
         tipoRepository.save(tipo);
         var tipoRetornado = tipoRepository.findById(tipo.getId()).get();
-        var ataque = new Ataque(acuracia, pontosDePoder, categoria, descricao, nomeEsperado, tipoRetornado);
+        Ataque ataque = new AtaqueBuilder().comTipo(tipoRetornado).construir();
         ataqueRepository.save(ataque);
 
         Collection<Ataque> ataquesRetornados = ataqueRepository.findByTipo(tipo);
@@ -93,15 +71,11 @@ public class AtaqueRepositoryTest {
     
     @Test
     public void deve_procurar_um_ataque_pela_categoria() throws AcuraciaInvalida {
-        String nomeEsperado = "Choque do Trovao";
-        int acuracia = 50;
-        int pontosDePoder = 80;
         Categoria categoria = Categoria.EFEITO;
-        String descricao = "Da choque nos outros";
         Tipo tipo = new Tipo("Eletrico");
         tipoRepository.save(tipo);
         var tipoRetornado = tipoRepository.findById(tipo.getId()).get();
-        var ataque = new Ataque(acuracia, pontosDePoder, categoria, descricao, nomeEsperado, tipoRetornado);
+        Ataque ataque = new AtaqueBuilder().comCategoria(categoria).comTipo(tipoRetornado).construir();
         ataqueRepository.save(ataque);
 
         Collection<Ataque> ataquesRetornados = ataqueRepository.findByCategoria(categoria);

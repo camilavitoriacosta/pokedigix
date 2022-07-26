@@ -10,7 +10,7 @@ import br.com.digix.pokedigix.tipo.Tipo;
 public class AtaqueTest {
 
     @Test
-    public void deve_poder_criar_um_ataque() throws AcuraciaInvalida{
+    public void deve_poder_criar_um_ataque() throws AcuraciaInvalida {
         // Arrange
         String nomeEsperado = "Choque do Trovao";
         int forca = 40;
@@ -20,10 +20,10 @@ public class AtaqueTest {
         String descricao = "Da choque nos outros";
         Tipo tipo = new Tipo("Eletrico");
 
-        //Act
+        // Act
         Ataque ataque = new Ataque(forca, acuracia, pontosDePoder, categoria, descricao, nomeEsperado, tipo);
 
-        //Assert
+        // Assert
         assertEquals(nomeEsperado, ataque.getNome());
         assertEquals(forca, ataque.getForca());
         assertEquals(acuracia, ataque.getAcuracia());
@@ -33,7 +33,7 @@ public class AtaqueTest {
     }
 
     @Test
-    public void deve_criar_um_ataque_da_categoria_efeito() throws AcuraciaInvalida{
+    public void deve_criar_um_ataque_da_categoria_efeito() throws AcuraciaInvalida {
         // Arrange
         String nomeEsperado = "Choque do Trovao";
         int acuracia = 50;
@@ -41,7 +41,7 @@ public class AtaqueTest {
         Categoria categoria = Categoria.EFEITO;
         String descricao = "Da choque nos outros";
         Tipo tipo = new Tipo("Eletrico");
-        
+
         var ataque = new Ataque(acuracia, pontosDePoder, categoria, descricao, nomeEsperado, tipo);
 
         assertEquals(nomeEsperado, ataque.getNome());
@@ -52,32 +52,19 @@ public class AtaqueTest {
     }
 
     @Test
-    public void nao_deve_criar_um_ataque_com_acuracia_negativa() throws AcuraciaInvalida{
-        // Arrange
-        String nomeEsperado = "Choque do Trovao";
-        int forca = 40;
+    public void nao_deve_criar_um_ataque_com_acuracia_negativa() throws AcuraciaInvalida {
         int acuracia = -50;
-        int pontosDePoder = 80;
-        Categoria categoria = Categoria.ESPECIAL;
-        String descricao = "Da choque nos outros";
-        Tipo tipo = new Tipo("Eletrico");
 
         Assertions.assertThrows(AcuraciaInvalida.class, () -> {
-            new Ataque(forca, acuracia, pontosDePoder, categoria, descricao, nomeEsperado, tipo);
+            new AtaqueBuilder().comAcuracia(acuracia).construir();
         });
     }
 
     @Test
-    public void deve_ser_obrigatorio_informar_um_tipo() throws AcuraciaInvalida{
-        String nome = "Choque do Trovao";
-        int forca = 60;
-        int acuracia = 50;
-        int pontosDePoder = 80;
-        Categoria categoria = Categoria.EFEITO;
-        String descricao = "Da choque nos outros";
+    public void deve_ser_obrigatorio_informar_um_tipo() throws AcuraciaInvalida {
         Tipo tipoEsperado = new Tipo("Eletrico");
-        
-        Ataque ataque = new Ataque(forca, acuracia, pontosDePoder, categoria, descricao, nome, tipoEsperado);
+
+        Ataque ataque = new AtaqueBuilder().comTipo(tipoEsperado).construir();
 
         assertEquals(tipoEsperado, ataque.getTipo());
     }

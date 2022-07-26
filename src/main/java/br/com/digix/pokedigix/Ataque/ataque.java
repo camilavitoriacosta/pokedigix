@@ -1,5 +1,8 @@
 package br.com.digix.pokedigix.ataque;
 
+import java.util.Collection;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -7,8 +10,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import br.com.digix.pokedigix.pokemon.Pokemon;
 import br.com.digix.pokedigix.tipo.Tipo;
 
 @Entity
@@ -36,8 +41,11 @@ public class Ataque {
     @Column(nullable = false, length = 20)
     private String nome;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST) // salva o tipo caso ele nao esteja no banco
     private Tipo tipo;
+
+    @ManyToMany(mappedBy = "ataques")
+    private Collection<Pokemon> pokemons;
 
     public Ataque(int forca, int acuracia, int pontosDePoder, Categoria categoria, String descricao,
             String nome, Tipo tipo) throws AcuraciaInvalida {
@@ -81,10 +89,9 @@ public class Ataque {
     }
 
     public void setAcuracia(int acuracia) throws AcuraciaInvalida {
-        if ( acuracia > 0 && acuracia < 100){
+        if (acuracia > 0 && acuracia < 100) {
             this.acuracia = acuracia;
-        }
-        else{
+        } else {
             throw new AcuraciaInvalida();
         }
     }
@@ -127,6 +134,14 @@ public class Ataque {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Collection<Pokemon> getPokemons() {
+        return pokemons;
+    }
+
+    public void setPokemons(Collection<Pokemon> pokemons) {
+        this.pokemons = pokemons;
     }
 
 }
