@@ -8,7 +8,6 @@ import br.com.digix.pokedigix.ataque.Ataque;
 import br.com.digix.pokedigix.tipo.Tipo;
 
 public class PokemonBuilder {
-
     private List<Ataque> ataques;
     private String nome;
     private int nivel;
