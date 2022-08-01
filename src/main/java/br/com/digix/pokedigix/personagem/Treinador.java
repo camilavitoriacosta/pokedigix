@@ -25,7 +25,7 @@ public class Treinador extends Personagem {
     @Column(name = "insignia")
     private Collection<Insignia> insignias;
 
-    public Treinador(String nome, Endereco endereco, Pokemon primeiroPokemon) {
+    public Treinador(String nome, Endereco endereco, Pokemon primeiroPokemon) throws LimiteDePokemonException {
         super(nome, endereco);
         this.capturar(primeiroPokemon);
         this.dinheiro = 3000;
@@ -33,8 +33,12 @@ public class Treinador extends Personagem {
         this.insignias = new ArrayList<>();
     }
 
-    public void capturar(Pokemon pokemon) {
-        super.pokemons.add(pokemon);
+    public void capturar(Pokemon pokemon) throws LimiteDePokemonException {
+        if (getQuantidadePokemon() < 6) {
+            super.pokemons.add(pokemon);
+        } else {
+            throw new LimiteDePokemonException();
+        }
     }
 
     public void receber(Insignia insignia) {
@@ -51,6 +55,10 @@ public class Treinador extends Personagem {
 
     public Collection<Insignia> getInsignias() {
         return insignias;
+    }
+
+    public int getQuantidadePokemon() {
+        return pokemons.size();
     }
 
 }

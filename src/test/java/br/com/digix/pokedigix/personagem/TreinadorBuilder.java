@@ -16,7 +16,7 @@ public class TreinadorBuilder {
         this.primeiroPokemon = new PokemonBuilder().construir();
     }
 
-    public Treinador construir(){
+    public Treinador construir() throws LimiteDePokemonException{
         return new Treinador(nome, endereco, primeiroPokemon);
     }
     
