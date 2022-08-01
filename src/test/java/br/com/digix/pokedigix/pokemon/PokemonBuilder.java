@@ -3,7 +3,7 @@ package br.com.digix.pokedigix.pokemon;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.digix.pokedigix.ataque.AcuraciaInvalida;
+import br.com.digix.pokedigix.ataque.AcuraciaInvalidaException;
 import br.com.digix.pokedigix.ataque.Ataque;
 import br.com.digix.pokedigix.tipo.Tipo;
 
@@ -18,7 +18,7 @@ public class PokemonBuilder {
     private int numeroPokedex;
     private List<Tipo> tipos;
 
-    public PokemonBuilder() throws AcuraciaInvalida {
+    public PokemonBuilder() throws AcuraciaInvalidaException {
         this.nome = "Pikachu";
         this.nivel = 10;
         this.felicidade = 80;

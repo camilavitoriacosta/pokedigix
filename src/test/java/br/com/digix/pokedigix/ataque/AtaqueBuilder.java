@@ -17,17 +17,22 @@ public class AtaqueBuilder {
         this.acuracia = 50;
         this.forca = 60;
         this.pontosDePoder = 80;
-        this.categoria = Categoria.EFEITO;
         this.descricao = "Da choque nos outros";
         this.tipo = new Tipo("Eletrico");
+        this.categoria = Categoria.FISICO;
     }
 
-    public Ataque construir() throws AcuraciaInvalida {
-        return new Ataque(forca, acuracia, pontosDePoder, categoria, descricao, nome, tipo);
+    public Ataque construir() throws Exception {
+        if (this.categoria.equals(Categoria.EFEITO)){
+            return new Ataque(acuracia, pontosDePoder, descricao, nome);
+        }
+        else{
+            return new Ataque(forca, acuracia, pontosDePoder, categoria, descricao, nome, tipo);
+        }
     }
 
-    public AtaqueBuilder comTipo(Tipo tipoEsperado) {
-        tipo = tipoEsperado;
+    public AtaqueBuilder comTipo(Tipo tipo) {
+        this.tipo = tipo;
         return this;
     }
 
@@ -40,4 +45,14 @@ public class AtaqueBuilder {
         this.categoria = categoria;
         return this;
     }
+
+    public AtaqueBuilder comCategoriaEfeito() {
+        this.categoria = Categoria.EFEITO;
+        return this;
+    }
+
+    public AtaqueBuilder comForca(int forca) {
+        this.forca = forca;
+        return this;
+    }    
 }

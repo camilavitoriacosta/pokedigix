@@ -1,6 +1,6 @@
 package br.com.digix.pokedigix.personagem;
 
-import br.com.digix.pokedigix.ataque.AcuraciaInvalida;
+import br.com.digix.pokedigix.ataque.AcuraciaInvalidaException;
 import br.com.digix.pokedigix.pokemon.Pokemon;
 import br.com.digix.pokedigix.pokemon.PokemonBuilder;
 
@@ -10,7 +10,7 @@ public class TreinadorBuilder {
     private Endereco endereco;
     private Pokemon primeiroPokemon;
 
-    public TreinadorBuilder() throws AcuraciaInvalida {
+    public TreinadorBuilder() throws AcuraciaInvalidaException {
         this.nome = "Ash";
         this.endereco = new EnderecoBuilder().construir();
         this.primeiroPokemon = new PokemonBuilder().construir();

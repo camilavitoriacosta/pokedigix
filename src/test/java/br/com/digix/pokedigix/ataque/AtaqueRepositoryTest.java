@@ -22,7 +22,7 @@ public class AtaqueRepositoryTest {
     private TipoRepository tipoRepository;
 
     @Test
-    public void deve_salvar_um_ataque() throws AcuraciaInvalida {
+    public void deve_salvar_um_ataque() throws Exception {
         Ataque ataque = new AtaqueBuilder().construir();
 
         ataqueRepository.save(ataque);
@@ -31,7 +31,7 @@ public class AtaqueRepositoryTest {
     }
 
     @Test
-    public void deve_salvar_um_ataque_com_categoria_efeito() throws AcuraciaInvalida {
+    public void deve_salvar_um_ataque_com_categoria_efeito() throws Exception {
         Categoria categoria = Categoria.EFEITO;
         Tipo tipo = new Tipo("Eletrico");
         Ataque ataque = new AtaqueBuilder().comCategoria(categoria).comTipo(tipo).construir();
@@ -42,7 +42,7 @@ public class AtaqueRepositoryTest {
     }
 
     @Test
-    public void deve_salvar_um_tipo_para_um_ataque() throws AcuraciaInvalida {
+    public void deve_salvar_um_tipo_para_um_ataque() throws Exception  {
         Tipo tipo = new Tipo("Eletrico");
         tipoRepository.save(tipo);
         var tipoRetornado = tipoRepository.findById(tipo.getId()).get();
@@ -57,7 +57,7 @@ public class AtaqueRepositoryTest {
     }
 
     @Test
-    public void deve_procurar_um_ataque_pelo_tipo() throws AcuraciaInvalida {
+    public void deve_procurar_um_ataque_pelo_tipo() throws Exception {
         Tipo tipo = new Tipo("Eletrico");
         tipoRepository.save(tipo);
         var tipoRetornado = tipoRepository.findById(tipo.getId()).get();
@@ -70,7 +70,7 @@ public class AtaqueRepositoryTest {
     }
     
     @Test
-    public void deve_procurar_um_ataque_pela_categoria() throws AcuraciaInvalida {
+    public void deve_procurar_um_ataque_pela_categoria() throws Exception {
         Categoria categoria = Categoria.EFEITO;
         Tipo tipo = new Tipo("Eletrico");
         tipoRepository.save(tipo);

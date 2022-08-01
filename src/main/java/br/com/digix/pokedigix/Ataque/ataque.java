@@ -48,31 +48,42 @@ public class Ataque {
     private Collection<Pokemon> pokemons;
 
     public Ataque(int forca, int acuracia, int pontosDePoder, Categoria categoria, String descricao,
-            String nome, Tipo tipo) throws AcuraciaInvalida {
+            String nome, Tipo tipo) throws Exception {
+        setCategoria(categoria);
         setForca(forca);
         setAcuracia(acuracia);
         setPontosDePoder(pontosDePoder);
         setDescricao(descricao);
         setNome(nome);
-        setCategoria(categoria);
         setTipo(tipo);
     }
 
-    public Ataque(int acuracia, int pontosDePoder, Categoria categoria, String descricao,
-            String nome, Tipo tipo) throws AcuraciaInvalida {
+    public Ataque(int acuracia, int pontosDePoder, String descricao, String nome) throws Exception {
+        setCategoria(Categoria.EFEITO);
         setAcuracia(acuracia);
         setPontosDePoder(pontosDePoder);
         setDescricao(descricao);
         setNome(nome);
-        setCategoria(categoria);
-        setTipo(tipo);
+    }
+
+    private void validarTipo(Tipo tipo) throws TipoInvalidoParaCategoriaException {
+        if (!(categoria.equals(Categoria.EFEITO)) && tipo == null) {
+            throw new TipoInvalidoParaCategoriaException(categoria);
+        }
+    }
+
+    private void validarForca(int forca) throws ForcaInvalidaParaCategoriaException {
+        if (!(categoria.equals(Categoria.EFEITO)) && forca <= 0) {
+            throw new ForcaInvalidaParaCategoriaException(categoria);
+        }
     }
 
     public Tipo getTipo() {
         return tipo;
     }
 
-    private void setTipo(Tipo tipo) {
+    private void setTipo(Tipo tipo) throws TipoInvalidoParaCategoriaException {
+        validarTipo(tipo);
         this.tipo = tipo;
     }
 
@@ -80,7 +91,8 @@ public class Ataque {
         return forca;
     }
 
-    public void setForca(int forca) {
+    public void setForca(int forca) throws ForcaInvalidaParaCategoriaException {
+        validarForca(forca);
         this.forca = forca;
     }
 
@@ -88,11 +100,11 @@ public class Ataque {
         return acuracia;
     }
 
-    public void setAcuracia(int acuracia) throws AcuraciaInvalida {
-        if (acuracia > 0 && acuracia < 100) {
+    public void setAcuracia(int acuracia) throws AcuraciaInvalidaException {
+        if (acuracia >= 0 && acuracia <= 100) {
             this.acuracia = acuracia;
         } else {
-            throw new AcuraciaInvalida();
+            throw new AcuraciaInvalidaException();
         }
     }
 

@@ -7,14 +7,14 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import br.com.digix.pokedigix.ataque.AcuraciaInvalida;
+import br.com.digix.pokedigix.ataque.AcuraciaInvalidaException;
 import br.com.digix.pokedigix.ataque.Ataque;
 import br.com.digix.pokedigix.ataque.AtaqueBuilder;
 import br.com.digix.pokedigix.tipo.Tipo;
 
 public class PokemonTest {
     @Test
-    public void deve_poder_criar_um_pokemon() throws AcuraciaInvalida {
+    public void deve_poder_criar_um_pokemon() throws Exception {
         // Arrange
         var nome = "Pikachu";
         var nivel = 10;
@@ -44,7 +44,7 @@ public class PokemonTest {
     }
 
     @Test
-    public void deve_poder_criar_um_pokemon_com_tipo() throws AcuraciaInvalida {
+    public void deve_poder_criar_um_pokemon_com_tipo() throws AcuraciaInvalidaException {
         //Arrange
         Tipo tipoCadastrado = new Tipo("Eletrico");
         List<Tipo> tipos = new ArrayList<Tipo>();
