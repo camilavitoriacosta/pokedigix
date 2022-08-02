@@ -54,10 +54,10 @@ public class Pokemon {
     private Collection<Ataque> ataques;
 
     public Pokemon(String nome, int nivel, int felicidade, double altura, double peso, Genero genero,
-            int numeroPokedex, Collection<Tipo> tipos, Collection<Ataque> ataques) {
+            int numeroPokedex, Collection<Tipo> tipos, Collection<Ataque> ataques) throws ValorNivelInvalidoException, ValorFelicidadeInvalidoException {
         this.nome = nome;
-        this.nivel = nivel;
-        this.felicidade = felicidade;
+        setNivel(nivel);
+        setFelicidade(felicidade);
         this.altura = altura;
         this.peso = peso;
         this.genero = genero;
@@ -86,15 +86,23 @@ public class Pokemon {
         return nivel;
     }
 
-    public void setNivel(int nivel) {
-        this.nivel = nivel;
+    public void setNivel(int nivel) throws ValorNivelInvalidoException {
+        if (nivel >= 1 && nivel <= 100) {
+            this.nivel = nivel;
+        } else {
+            throw new ValorNivelInvalidoException();
+        }
+
     }
 
     public int getFelicidade() {
         return felicidade;
     }
 
-    public void setFelicidade(int felicidade) {
+    public void setFelicidade(int felicidade) throws ValorFelicidadeInvalidoException {
+        if(felicidade < 0 || felicidade > 100){
+            throw new ValorFelicidadeInvalidoException();
+        }
         this.felicidade = felicidade;
     }
 

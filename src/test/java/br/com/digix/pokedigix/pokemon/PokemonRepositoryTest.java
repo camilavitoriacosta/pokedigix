@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import br.com.digix.pokedigix.ataque.AcuraciaInvalidaException;
 import br.com.digix.pokedigix.ataque.Ataque;
 import br.com.digix.pokedigix.ataque.AtaqueBuilder;
 import br.com.digix.pokedigix.tipo.Tipo;
@@ -19,7 +18,7 @@ public class PokemonRepositoryTest {
     private PokemonRepository pokemonRepository;
 
     @Test
-    public void deve_salvar_um_pokemon() throws AcuraciaInvalidaException {
+    public void deve_salvar_um_pokemon() throws Exception {
         Tipo tipoCadastrado = new Tipo("Eletrico");
         Pokemon pokemon = new PokemonBuilder().comTipo(tipoCadastrado).construir();
 
@@ -29,7 +28,7 @@ public class PokemonRepositoryTest {
     }
 
     @Test
-    public void deve_salvar_um_pokemon_com_tipo() throws AcuraciaInvalidaException {
+    public void deve_salvar_um_pokemon_com_tipo() throws Exception {
         Tipo tipoCadastrado = new Tipo("Eletrico");
         Pokemon pokemon = new PokemonBuilder().comTipo(tipoCadastrado).construir();
         pokemonRepository.save(pokemon);

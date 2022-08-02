@@ -3,7 +3,6 @@ package br.com.digix.pokedigix.pokemon;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.digix.pokedigix.ataque.AcuraciaInvalidaException;
 import br.com.digix.pokedigix.ataque.Ataque;
 import br.com.digix.pokedigix.tipo.Tipo;
 
@@ -18,7 +17,7 @@ public class PokemonBuilder {
     private int numeroPokedex;
     private List<Tipo> tipos;
 
-    public PokemonBuilder() throws AcuraciaInvalidaException {
+    public PokemonBuilder() {
         this.nome = "Pikachu";
         this.nivel = 10;
         this.felicidade = 80;
@@ -30,7 +29,7 @@ public class PokemonBuilder {
         this.ataques = new ArrayList<Ataque>();
     }
 
-    public Pokemon construir() {
+    public Pokemon construir() throws Exception {
         return new Pokemon(nome, nivel, felicidade, altura, peso, genero, numeroPokedex, tipos, ataques);
     }
 
@@ -41,6 +40,16 @@ public class PokemonBuilder {
 
     public PokemonBuilder comTipo(Tipo tipoCadastrado) {
         tipos.add(tipoCadastrado);
+        return this;
+    }
+
+    public PokemonBuilder comNivel(int nivel) {
+        this.nivel = nivel;
+        return this;
+    }
+
+    public PokemonBuilder comFelicidade(int felicidade) {
+        this.felicidade = felicidade;
         return this;
     }
 }
