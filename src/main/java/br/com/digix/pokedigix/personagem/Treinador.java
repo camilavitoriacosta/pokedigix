@@ -14,6 +14,8 @@ import br.com.digix.pokedigix.pokemon.Pokemon;
 @Entity
 public class Treinador extends Personagem {
 
+    private static final int LIMITE_POKEMON = 6;
+
     @Column(nullable = false)
     private int dinheiro;
 
@@ -34,9 +36,12 @@ public class Treinador extends Personagem {
     }
 
     public void capturar(Pokemon pokemon) throws LimiteDePokemonException {
-        if (getQuantidadePokemon() < 6) {
-            super.pokemons.add(pokemon);
-        } else {
+        validarQuantidadeDePokemons();
+        super.pokemons.add(pokemon);
+    }
+
+    private void validarQuantidadeDePokemons() throws LimiteDePokemonException {
+        if (getQuantidadePokemon() == LIMITE_POKEMON) {
             throw new LimiteDePokemonException();
         }
     }
