@@ -77,19 +77,19 @@ public class PokemonTest {
 
     @Test
     public void nao_deve_ter_nivel_maior_que_cem() throws Exception {
-        int nivelMaximo = 101;
+        int nivel = 101;
 
         assertThrows(ValorNivelInvalidoException.class, () -> {
-            new PokemonBuilder().comNivel(nivelMaximo).construir();
+            new PokemonBuilder().comNivel(nivel).construir();
         });
     }
 
     @Test
     public void nao_deve_ter_nivel_menor_que_um() throws Exception {
-        int nivelMaximo = 0;
+        int nivel = 0;
 
         assertThrows(ValorNivelInvalidoException.class, () -> {
-            new PokemonBuilder().comNivel(nivelMaximo).construir();
+            new PokemonBuilder().comNivel(nivel).construir();
         });
     }
 
@@ -112,22 +112,20 @@ public class PokemonTest {
     }
 
     @Test
-    public void bao_deve_ter_felicidade_menor_que_zero() throws Exception {
-        int felicidadeMinima = -1;
+    public void nao_deve_ter_felicidade_menor_que_zero() throws Exception {
+        int felicidade = -1;
 
         assertThrows(ValorFelicidadeInvalidoException.class, () -> {
-            new PokemonBuilder().comFelicidade(felicidadeMinima).construir();
+            new PokemonBuilder().comFelicidade(felicidade).construir();
         });
-
     }
+
     @Test
-    public void bao_deve_ter_felicidade_maior_que_cem() throws Exception {
-        int felicidadeMinima = 101;
+    public void nao_deve_ter_felicidade_maior_que_cem() throws Exception {
+        int felicidade = 101;
 
         assertThrows(ValorFelicidadeInvalidoException.class, () -> {
-            new PokemonBuilder().comFelicidade(felicidadeMinima).construir();
+            new PokemonBuilder().comFelicidade(felicidade).construir();
         });
-
     }
-
 }
