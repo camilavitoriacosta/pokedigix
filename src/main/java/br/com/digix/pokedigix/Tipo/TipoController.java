@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -27,9 +28,16 @@ public class TipoController {
     }
 
     @GetMapping()
-    public List<TipoResponseDTO> buscarTodos() {
+    // buscarTodos(@RequestParam(required = false, name = "termo") String nome)
+    public List<TipoResponseDTO> buscarTodos(@RequestParam(required = false) String nome) {
+        Iterable<Tipo> tipos = tipoRepository.findAll();
+
+        if (nome != null) {
+           tipos = tipoRepository.findByNomeContaining(nome);
+        }
+
         List<TipoResponseDTO> tiposRetornados = new ArrayList<TipoResponseDTO>();
-        for (Tipo tipo : tipoRepository.findAll()) {
+        for (Tipo tipo : tipos) {
             tiposRetornados.add(new TipoResponseDTO(tipo.getId(), tipo.getNome()));
         }
         return tiposRetornados;
@@ -47,9 +55,9 @@ public class TipoController {
     }
 
     @PutMapping(path = "/{id}", consumes = "application/json")
-    public TipoResponseDTO atualizarPorId(@RequestBody TipoResponseDTO novoTipo, @PathVariable Long id) {
+    public TipoResponseDTO atualizarPorId(@RequestBody TipoResponseDTO tipoResponseDTO, @PathVariable Long id) {
         Tipo tipo = tipoRepository.findById(id).get();
-        tipo.setNome(novoTipo.getNome());
+        tipo.setNome(tipoResponseDTO.getNome());
         tipoRepository.save(tipo);
         return new TipoResponseDTO(tipo.getId(), tipo.getNome());
     }

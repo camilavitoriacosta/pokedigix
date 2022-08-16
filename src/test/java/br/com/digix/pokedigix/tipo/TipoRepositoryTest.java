@@ -31,7 +31,7 @@ public class TipoRepositoryTest {
         Tipo tipo = new Tipo(nome);
         tipoRepository.save(tipo);
 
-        Collection<Tipo> tiposRetornados = tipoRepository.findByNome(nome);
+        Collection<Tipo> tiposRetornados = tipoRepository.findByNomeContaining(nome);
 
         assertTrue(tiposRetornados.contains(tipo));
     }
