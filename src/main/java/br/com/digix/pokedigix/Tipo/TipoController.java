@@ -3,6 +3,8 @@ package br.com.digix.pokedigix.tipo;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,10 +32,12 @@ public class TipoController {
     @GetMapping()
     // buscarTodos(@RequestParam(required = false, name = "termo") String nome)
     public List<TipoResponseDTO> buscarTodos(@RequestParam(required = false) String nome) {
-        Iterable<Tipo> tipos = tipoRepository.findAll();
+        Iterable<Tipo> tipos;
 
         if (nome != null) {
-           tipos = tipoRepository.findByNomeContaining(nome);
+            tipos = tipoRepository.findByNomeContaining(nome);
+        } else {
+            tipos = tipoRepository.findAll();
         }
 
         List<TipoResponseDTO> tiposRetornados = new ArrayList<TipoResponseDTO>();
@@ -52,6 +56,12 @@ public class TipoController {
     @DeleteMapping(path = "/{id}")
     public void deletarPorId(@PathVariable Long id) {
         tipoRepository.deleteById(id);
+    }
+
+    @DeleteMapping()
+    @Transactional
+    public void deletarPorNome(@RequestParam(required = true) String nome) {
+        tipoRepository.deleteByNomeContaining(nome);
     }
 
     @PutMapping(path = "/{id}", consumes = "application/json")
