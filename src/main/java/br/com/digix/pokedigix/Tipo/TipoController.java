@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,4 +32,11 @@ public class TipoController {
         }
         return tiposRetornados;
     }
+
+    @GetMapping(path = "/{id}")
+    public TipoResponseDTO buscarPorId(@PathVariable Long id) {
+        Tipo tipoRetornado = tipoRepository.findById(id).get();
+        return new TipoResponseDTO(tipoRetornado.getId(), tipoRetornado.getNome());
+    }
+
 }
