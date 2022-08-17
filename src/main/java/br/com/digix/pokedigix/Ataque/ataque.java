@@ -47,6 +47,9 @@ public class Ataque {
     @ManyToMany(mappedBy = "ataques")
     private Collection<Pokemon> pokemons;
 
+    protected Ataque() {
+    }
+
     public Ataque(int forca, int acuracia, int pontosDePoder, Categoria categoria, String descricao,
             String nome, Tipo tipo) throws Exception {
         setCategoria(categoria);
