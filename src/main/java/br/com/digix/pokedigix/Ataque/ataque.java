@@ -85,7 +85,7 @@ public class Ataque {
         return tipo;
     }
 
-    private void setTipo(Tipo tipo) throws TipoInvalidoParaCategoriaException {
+    public void setTipo(Tipo tipo) throws TipoInvalidoParaCategoriaException {
         validarTipo(tipo);
         this.tipo = tipo;
     }
