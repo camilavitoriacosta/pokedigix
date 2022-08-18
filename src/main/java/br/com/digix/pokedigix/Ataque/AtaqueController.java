@@ -1,5 +1,8 @@
 package br.com.digix.pokedigix.ataque;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +41,25 @@ public class AtaqueController {
                                                 ataque.getCategoria(),
                                                 ataque.getDescricao(), ataque.getPontosDePoder(), ataque.getForca(),
                                                 tipo));
+        }
+
+        @GetMapping()
+        @Operation(summary = "Buscar todos os Ataques")
+        @ApiResponse(responseCode = "200", description = "Lista de tipos cadastrados")
+        public ResponseEntity<List<AtaqueResponseDTO>> buscarTodos() {
+                Iterable<Ataque> ataquesRetornados = ataqueRepository.findAll();
+
+                List<AtaqueResponseDTO> ataquesDTO = new ArrayList<AtaqueResponseDTO>();
+                for (Ataque ataque : ataquesRetornados) {
+                        TipoResponseDTO tipo = new TipoResponseDTO(ataque.getTipo().getId(),
+                                        ataque.getTipo().getNome());
+
+                        ataquesDTO.add(new AtaqueResponseDTO(ataque.getId(), ataque.getNome(), ataque.getAcuracia(),
+                                        ataque.getCategoria(),
+                                        ataque.getDescricao(), ataque.getPontosDePoder(), ataque.getForca(),
+                                        tipo));
+                }
+                return ResponseEntity.ok(ataquesDTO);
         }
 
         @Operation(summary = "Criar um novo Ataque que pode ser usado para Pokemons")
