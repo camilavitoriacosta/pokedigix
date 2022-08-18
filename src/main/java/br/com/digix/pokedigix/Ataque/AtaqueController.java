@@ -3,6 +3,7 @@ package br.com.digix.pokedigix.ataque;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +27,7 @@ public class AtaqueController {
         @Autowired
         private TipoRepository tipoRepository;
 
-        @Operation(summary = "Buscar ataques cadastrados por id")
+        @Operation(summary = "Buscar Ataques cadastrados por id")
         @ApiResponse(responseCode = "200")
         @GetMapping(path = "/{id}")
         public ResponseEntity<AtaqueResponseDTO> buscarPorId(@PathVariable Long id) {
@@ -39,7 +40,7 @@ public class AtaqueController {
                                                 tipo));
         }
 
-        @Operation(summary = "Criar um novo ataque que pode ser usado para Pokemons")
+        @Operation(summary = "Criar um novo Ataque que pode ser usado para Pokemons")
         @ApiResponse(responseCode = "201")
         @PostMapping(consumes = "application/json")
         public ResponseEntity<AtaqueResponseDTO> criar(@RequestBody AtaqueRequestDTO novoAtaque) throws Exception {
@@ -59,7 +60,7 @@ public class AtaqueController {
                                                 tipoDTO));
         }
 
-        @Operation(summary = "Atualiza um tipo cadastro por meio do id")
+        @Operation(summary = "Atualiza um Ataque cadastro por meio do id")
         @ApiResponse(responseCode = "200")
         @PutMapping(path = "/{id}", consumes = "application/json")
         public ResponseEntity<AtaqueResponseDTO> atualizarPorId(@RequestBody AtaqueResponseDTO ataqueResponseDTO,
@@ -85,5 +86,13 @@ public class AtaqueController {
                                                 ataque.getDescricao(), ataque.getPontosDePoder(), ataque.getForca(),
                                                 tipoDTO));
 
+        }
+
+        @Operation(summary = "Deleta um Ataque cadastro por meio do id")
+        @ApiResponse(responseCode = "204")
+        @DeleteMapping(path = "/{id}")
+        public ResponseEntity<?> deletarPorId(@PathVariable Long id) {
+                ataqueRepository.deleteById(id);
+                return ResponseEntity.noContent().build();
         }
 }
