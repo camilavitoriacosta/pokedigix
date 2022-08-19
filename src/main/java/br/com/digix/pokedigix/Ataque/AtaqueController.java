@@ -65,21 +65,26 @@ public class AtaqueController {
         @Operation(summary = "Criar um novo Ataque que pode ser usado para Pokemons")
         @ApiResponse(responseCode = "201")
         @PostMapping(consumes = "application/json")
-        public ResponseEntity<AtaqueResponseDTO> criar(@RequestBody AtaqueRequestDTO novoAtaque) throws Exception {
+        public ResponseEntity<AtaqueResponseDTO> criar(@RequestBody AtaqueRequestDTO novoAtaque)
+                        throws AcuraciaInvalidaException, ForcaInvalidaParaCategoriaException,
+                        TipoInvalidoParaCategoriaException {
                 Tipo tipo = tipoRepository.findById(novoAtaque.getIdTipo()).get();
                 Ataque ataque = new Ataque(novoAtaque.getForca(), novoAtaque.getAcuracia(),
                                 novoAtaque.getPontosDePoder(),
-                                novoAtaque.getCategoria(), novoAtaque.getDescricao(), novoAtaque.getNome(), tipo);
-
+                                novoAtaque.getCategoria(), novoAtaque.getDescricao(), novoAtaque.getNome(),
+                                tipo);
                 ataqueRepository.save(ataque);
 
                 TipoResponseDTO tipoDTO = new TipoResponseDTO(tipo.getId(), tipo.getNome());
                 return ResponseEntity
                                 .status(HttpStatus.CREATED)
-                                .body(new AtaqueResponseDTO(ataque.getId(), ataque.getNome(), ataque.getAcuracia(),
-                                                ataque.getCategoria(), ataque.getDescricao(), ataque.getPontosDePoder(),
+                                .body(new AtaqueResponseDTO(ataque.getId(), ataque.getNome(),
+                                                ataque.getAcuracia(),
+                                                ataque.getCategoria(), ataque.getDescricao(),
+                                                ataque.getPontosDePoder(),
                                                 ataque.getForca(),
                                                 tipoDTO));
+
         }
 
         @Operation(summary = "Atualiza um Ataque cadastro por meio do id")

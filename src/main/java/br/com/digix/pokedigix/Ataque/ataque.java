@@ -51,7 +51,7 @@ public class Ataque {
     }
 
     public Ataque(int forca, int acuracia, int pontosDePoder, Categoria categoria, String descricao,
-            String nome, Tipo tipo) throws Exception {
+            String nome, Tipo tipo) throws AcuraciaInvalidaException, ForcaInvalidaParaCategoriaException, TipoInvalidoParaCategoriaException  {
         setCategoria(categoria);
         setForca(forca);
         setAcuracia(acuracia);
@@ -61,7 +61,7 @@ public class Ataque {
         setTipo(tipo);
     }
 
-    public Ataque(int acuracia, int pontosDePoder, String descricao, String nome) throws Exception {
+    public Ataque(int acuracia, int pontosDePoder, String descricao, String nome) throws AcuraciaInvalidaException  {
         setCategoria(Categoria.EFEITO);
         setAcuracia(acuracia);
         setPontosDePoder(pontosDePoder);
